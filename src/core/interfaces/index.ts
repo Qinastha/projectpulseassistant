@@ -1,2 +1,3 @@
 export * from "./IUser";
-export * from "./IChat";
+export * from "./IConversation";
+export * from "./requiredInput";
