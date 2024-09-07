@@ -1,3 +1,3 @@
-export * from "./IUser";
-export * from "./IConversation";
+export * from "./IThread";
+export * from "./IThreadMessage";
 export * from "./requiredInput";

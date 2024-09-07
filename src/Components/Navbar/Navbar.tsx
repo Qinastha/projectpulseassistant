@@ -1,34 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Navbar.scss";
-import { IConversation } from "../../core";
+import { IThread } from "../../core";
+import axios from "axios";
 
-export const Navbar: React.FC = () => {
-	const [conversations, setConversations] = useState<IConversation[]>([]);
+interface NavbarProps {
+	threads: IThread[];
+	token: string;
+	setThreads: (threads: IThread[]) => void;
+	setCurrentThread: (thread: IThread) => void;
+}
 
-	const handleConversationCreate = () => {
-		const newConversation: IConversation = {
-			_id: conversations.length + 1,
-			name: "New conversation",
-			prompts: [],
-			responses: [],
-			createdAt: new Date().toISOString(),
-			updatedAt: new Date().toISOString(),
-		};
-
-		setConversations([...conversations, newConversation]);
+export const Navbar: React.FC<NavbarProps> = ({
+	threads,
+	token,
+	setThreads,
+	setCurrentThread,
+}) => {
+	const handleNewThread = async () => {
+		try {
+			const response = await axios.post(
+				"http://localhost:4000/api/assistant",
+				{},
+				{
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + token,
+					},
+				},
+			);
+			if (response?.data?.value) {
+				const newThread = response.data.value as IThread;
+				setThreads([...threads, newThread]);
+				setCurrentThread(newThread);
+			}
+		} catch (err: any) {
+			console.error(err);
+		}
 	};
 
 	return (
 		<div className="navbar--container ">
 			<div className="navbar--container-title glassmorphism">
 				<h3>Conversations list:</h3>
-				<button onClick={handleConversationCreate}>Create</button>
+				<button onClick={handleNewThread}>Create</button>
 			</div>
 			<div className="navbar--container-conversations glassmorphism">
-				{conversations.map(conversation => (
-					<div key={conversation._id} className="conversation">
-						<h6>{conversation.name}</h6>
-						<p>{conversation.updatedAt}</p>
+				{threads.map(thread => (
+					<div
+						key={thread._id}
+						className="conversation"
+						onClick={() => setCurrentThread(thread)}>
+						<h6>{thread.title}</h6>
 					</div>
 				))}
 			</div>
