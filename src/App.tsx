@@ -1,10 +1,14 @@
 import React from "react";
+import "@Qinastha/pulse_library/dist/index.css";
 import { Main } from "./Main";
-import { LoginPopup } from "./Components/LoginPopup";
+import { AuthProvider } from "./core/utilities/AuthContext";
 
 const App: React.FC = () => {
-  const isAuthenticated = !!localStorage.getItem("token");
-  return <>{isAuthenticated ? <Main /> : <LoginPopup />}</>;
+	return (
+		<AuthProvider>
+			<Main />
+		</AuthProvider>
+	);
 };
 
 export default App;
