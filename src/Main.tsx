@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Thread, LoginPage, Navbar } from "./Components";
 import "./Main.scss";
-import { useAuth } from "./core/utilities/AuthContext";
-import { IThread, IThreadMessage } from "./core";
+import { IThread, useAuth } from "./core";
 import axios from "axios";
 
 export const Main: React.FC = () => {
 	const { isAuthenticated } = useAuth();
 	const [threads, setThreads] = useState<IThread[]>([]);
-	const [currentThread, setCurrentThread] = useState<IThread>({
-		_id: "",
-		title: "",
-		messages: [],
-	});
+	const [currentThread, setCurrentThread] = useState<IThread | null>(null);
 	const token = localStorage.getItem("token");
 
 	useEffect(() => {
@@ -60,6 +55,7 @@ export const Main: React.FC = () => {
 						<Navbar
 							threads={threads}
 							token={token ?? ""}
+							currentThread={currentThread}
 							setThreads={setThreads}
 							setCurrentThread={setCurrentThread}
 						/>
@@ -68,13 +64,11 @@ export const Main: React.FC = () => {
 
 				<main>
 					<div className="main--container glassmorphism">
-						{currentThread && (
-							<Thread
-								currentThread={currentThread}
-								token={token ?? ""}
-								setCurrentThread={setCurrentThread}
-							/>
-						)}
+						<Thread
+							currentThread={currentThread}
+							token={token ?? ""}
+							setCurrentThread={setCurrentThread}
+						/>
 					</div>
 				</main>
 			</div>

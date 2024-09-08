@@ -1,39 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.scss";
-import { IThread } from "../../core";
-import axios from "axios";
+import {
+	handleDeleteThread,
+	handleEditThread,
+	handleNewThread,
+	IThread,
+	ThreadsList,
+} from "../../core";
 
 interface NavbarProps {
 	threads: IThread[];
 	token: string;
+	currentThread: IThread | null;
 	setThreads: (threads: IThread[]) => void;
-	setCurrentThread: (thread: IThread) => void;
+	setCurrentThread: (thread: IThread | null) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
 	threads,
 	token,
+	currentThread,
 	setThreads,
 	setCurrentThread,
 }) => {
-	const handleNewThread = async () => {
+	const [titleValue, setTitleValue] = useState("");
+	const [editingId, setEditingId] = useState<string | null>(null);
+
+	const handleTitleEdit = (threadId: string) => {
+		if (editingId === threadId) {
+			setEditingId(null);
+		} else {
+			setEditingId(threadId);
+			const targetThread = threads.find(thread => thread._id === threadId);
+			setTitleValue(targetThread?.title ?? "");
+		}
+	};
+
+	const handleSelectThread = (threadId: string) => {
+		const currentThread = threads.find(
+			(thread: IThread) => thread._id === threadId,
+		);
+		if (currentThread) {
+			setCurrentThread(currentThread);
+		} else {
+			console.error("Failed to find thread.");
+		}
+	};
+
+	const handleNewThreadClick = async () => {
 		try {
-			const response = await axios.post(
-				"http://localhost:4000/api/assistant",
-				{},
-				{
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: "Bearer " + token,
-					},
-				},
+			const newThread = await handleNewThread(token);
+			setThreads([...threads, newThread]);
+			setCurrentThread(newThread);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleEditThreadClick = async (
+		threadId: string,
+		e: React.MouseEvent<HTMLButtonElement>,
+	) => {
+		e.stopPropagation();
+		try {
+			const updatedThread = await handleEditThread(threadId, titleValue, token);
+			const updatedThreads = threads.map((thread: IThread) =>
+				thread._id === updatedThread._id ? updatedThread : thread,
 			);
-			if (response?.data?.value) {
-				const newThread = response.data.value as IThread;
-				setThreads([...threads, newThread]);
-				setCurrentThread(newThread);
-			}
-		} catch (err: any) {
+			setThreads(updatedThreads);
+			setEditingId(null);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleDeleteThreadClick = async (
+		threadId: string,
+		e: React.MouseEvent<HTMLButtonElement>,
+	) => {
+		e.stopPropagation();
+		try {
+			await handleDeleteThread(threadId, token);
+			const updatedThreads = threads.filter(
+				(thread: IThread) => thread._id !== threadId,
+			);
+			setThreads(updatedThreads);
+			setCurrentThread(null);
+		} catch (err) {
 			console.error(err);
 		}
 	};
@@ -42,17 +95,20 @@ export const Navbar: React.FC<NavbarProps> = ({
 		<div className="navbar--container ">
 			<div className="navbar--container-title glassmorphism">
 				<h3>Conversations list:</h3>
-				<button onClick={handleNewThread}>Create</button>
+				<button onClick={handleNewThreadClick}>&#43;</button>
 			</div>
-			<div className="navbar--container-conversations glassmorphism">
-				{threads.map(thread => (
-					<div
-						key={thread._id}
-						className="conversation"
-						onClick={() => setCurrentThread(thread)}>
-						<h6>{thread.title}</h6>
-					</div>
-				))}
+			<div className="navbar--container-threads glassmorphism">
+				<ThreadsList
+					threads={threads}
+					currentThread={currentThread}
+					editingId={editingId}
+					titleValue={titleValue}
+					handleSelectThread={handleSelectThread}
+					handleTitleEdit={handleTitleEdit}
+					handleEditThreadClick={handleEditThreadClick}
+					handleDeleteThreadClick={handleDeleteThreadClick}
+					setTitleValue={setTitleValue}
+				/>
 			</div>
 		</div>
 	);
