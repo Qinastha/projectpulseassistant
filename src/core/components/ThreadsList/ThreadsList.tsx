@@ -34,7 +34,7 @@ export const ThreadsList: React.FC<ThreadsListProps> = ({
 }) => {
 	const { viewportWidth } = useViewport();
 	const getTrimmedTitle = (title: string) => {
-		const charWidthVW = 10;
+		const charWidthVW = 10.2;
 		const maxChars = Math.floor((viewportWidth * 0.18) / charWidthVW);
 		return title.length > maxChars ? title.slice(0, maxChars) + "..." : title;
 	};

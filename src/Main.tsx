@@ -3,12 +3,19 @@ import { Thread, LoginPage, Navbar } from "./Components";
 import "./Main.scss";
 import { IThread, useAuth } from "./core";
 import axios from "axios";
+import { useHideNav } from "@Qinastha/pulse_library";
 
 export const Main: React.FC = () => {
 	const { isAuthenticated } = useAuth();
 	const [threads, setThreads] = useState<IThread[]>([]);
 	const [currentThread, setCurrentThread] = useState<IThread | null>(null);
 	const token = localStorage.getItem("token");
+	const [isNavbarHidden, setIsNavbarHidden] = useState<boolean>(false);
+
+	const { handleTouchStart, handleTouchEnd, handleTouchMove } = useHideNav({
+		onHide: () => setIsNavbarHidden(true),
+		onShow: () => setIsNavbarHidden(false),
+	});
 
 	useEffect(() => {
 		const fetchThreads = async () => {
@@ -43,7 +50,7 @@ export const Main: React.FC = () => {
 
 	return (
 		<div className={isAuthenticated ? "" : "fullscreen-overlay"}>
-			<div className="core--container">
+			<div className={`core--container ${!isNavbarHidden ? "" : "hidden"}`}>
 				{!isAuthenticated && (
 					<div className="popup--container glassmorphism">
 						<LoginPage />
@@ -51,7 +58,8 @@ export const Main: React.FC = () => {
 				)}
 
 				<header>
-					<div className="header--container glassmorphism">
+					<div
+						className={`header--container ${!isNavbarHidden ? "" : "hidden"} glassmorphism`}>
 						<Navbar
 							threads={threads}
 							token={token ?? ""}
@@ -63,7 +71,11 @@ export const Main: React.FC = () => {
 				</header>
 
 				<main>
-					<div className="main--container glassmorphism">
+					<div
+						className="main--container glassmorphism"
+						onTouchStart={handleTouchStart}
+						onTouchMove={handleTouchMove}
+						onTouchEnd={handleTouchEnd}>
 						<Thread
 							currentThread={currentThread}
 							token={token ?? ""}

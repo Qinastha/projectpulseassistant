@@ -29,6 +29,7 @@ export const Thread: React.FC<ThreadProps> = ({
 						_id: "messageId",
 						sender: "user",
 						timestamp: new Date(),
+						isNew: false,
 					},
 				],
 			});
@@ -59,10 +60,10 @@ export const Thread: React.FC<ThreadProps> = ({
 
 	useEffect(() => {
 		lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-	}, []);
+	}, [currentThread]);
 
 	return (
-		<div className="chat-container ">
+		<div className="chat-container">
 			{currentThread ? (
 				<>
 					<div className="messages-container">
@@ -83,7 +84,7 @@ export const Thread: React.FC<ThreadProps> = ({
 						/>
 						<button
 							onClick={() => handleSendMessage()}
-							disabled={inputValue == ""}>
+							disabled={inputValue === ""}>
 							Send
 						</button>
 					</div>

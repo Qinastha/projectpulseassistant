@@ -92,10 +92,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 	};
 
 	return (
-		<div className="navbar--container ">
-			<div className="navbar--container-title glassmorphism">
-				<h3>Conversations list:</h3>
-				<button onClick={handleNewThreadClick}>&#43;</button>
+		<div className="navbar--container">
+			<div className="navbar--container_header">
+				<div className="navbar--container-title glassmorphism">
+					<h3>Threads list:</h3>
+				</div>
+				<div className="navbar--container-button glassmorphism">
+					<button onClick={handleNewThreadClick}>&#43;</button>
+				</div>
 			</div>
 			<div className="navbar--container-threads glassmorphism">
 				<ThreadsList
