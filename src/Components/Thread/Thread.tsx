@@ -4,7 +4,7 @@ import axios from "axios";
 import { IThread, IThreadMessage } from "../../core";
 
 interface ThreadProps {
-	currentThread: IThread;
+	currentThread: IThread | null;
 	token: string;
 	setCurrentThread: (thread: IThread) => void;
 }
@@ -18,68 +18,83 @@ export const Thread: React.FC<ThreadProps> = ({
 	const lastMessageRef = useRef<HTMLDivElement>(null);
 
 	const handleSendMessage = async () => {
-		setInputValue("");
-		setCurrentThread({
-			...currentThread,
-			messages: [
-				...currentThread.messages,
-				{
-					text: inputValue,
-					_id: "messageId",
-					sender: "user",
-					timestamp: new Date(),
-				},
-			],
-		});
-		try {
-			const response = await axios.post(
-				`http://localhost:4000/api/assistant/${currentThread._id}/new`,
-				{ text: inputValue },
-				{
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: "Bearer " + token,
+		if (currentThread) {
+			setInputValue("");
+			setCurrentThread({
+				...currentThread,
+				messages: [
+					...currentThread.messages,
+					{
+						text: inputValue,
+						_id: "messageId",
+						sender: "user",
+						timestamp: new Date(),
+						isNew: false,
 					},
-				},
-			);
-			if (response?.data?.value) {
-				const updatedThread = response.data.value as IThread;
-				setCurrentThread(updatedThread);
-			} else {
-				console.error("Failed to send message.");
+				],
+			});
+			try {
+				const response = await axios.post(
+					`http://localhost:4000/api/assistant/${currentThread._id}/new`,
+					{ text: inputValue },
+					{
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: "Bearer " + token,
+						},
+					},
+				);
+				if (response?.data?.value) {
+					const updatedThread = response.data.value as IThread;
+					setCurrentThread(updatedThread);
+				} else {
+					console.error("Failed to send message.");
+				}
+			} catch (error) {
+				console.error("Error sending message:", error);
 			}
-		} catch (error) {
-			console.error("Error sending message:", error);
+		} else {
+			console.error("No current thread.");
 		}
 	};
 
 	useEffect(() => {
 		lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-	}, []);
+	}, [currentThread]);
 
 	return (
-		<div className="chat-container ">
-			<div className="messages-container">
-				{currentThread.messages.map((message: IThreadMessage) => (
-					<div key={message._id} className={`message ${message.sender}`}>
-						{message.text}
+		<div className="chat-container">
+			{currentThread ? (
+				<>
+					<div className="messages-container">
+						{currentThread.messages.map((message: IThreadMessage) => (
+							<div key={message._id} className={`message ${message.sender}`}>
+								{message.text}
+							</div>
+						))}
+						<div ref={lastMessageRef} />
 					</div>
-				))}
-				<div ref={lastMessageRef} />
-			</div>
-			<div className="input-container">
-				<input
-					type="text"
-					value={inputValue}
-					onChange={e => setInputValue(e.target.value)}
-					placeholder="Type a question..."
-				/>
-				<button
-					onClick={() => handleSendMessage()}
-					disabled={!inputValue.trim()}>
-					Send
-				</button>
-			</div>
+
+					<div className="input-container">
+						<input
+							type="text"
+							value={inputValue}
+							onChange={e => setInputValue(e.target.value)}
+							placeholder="Type a question..."
+						/>
+						<button
+							onClick={() => handleSendMessage()}
+							disabled={inputValue === ""}>
+							Send
+						</button>
+					</div>
+				</>
+			) : (
+				<div className="no-thread-selected">
+					No thread selected. Please select a thread from the list or create a
+					new one with button.
+				</div>
+			)}
 		</div>
 	);
 };

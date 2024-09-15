@@ -1,0 +1,141 @@
+@import "~@Qinastha/pulse_library/src/styles/variables";
+@import "~@Qinastha/pulse_library/src/styles/mixins";
+
+.threadsList--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1rem;
+  box-sizing: content-box;
+  overflow-x: hidden;
+
+  .thread {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border-bottom: 1px solid $sakura-active-border-color;
+    width: 100%;
+    box-sizing: border-box;
+    transition: transform 0.2s ease-in-out;
+
+    &:first-child {
+      margin-top: 1rem;
+    }
+
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+
+    .title--container {
+      flex-grow: 1;
+      height: 100%;
+      align-content: center;
+      text-align: start;
+      cursor: pointer;
+      word-break: auto-phrase;
+
+      h6 {
+        margin: 0;
+        font-size: 0.8rem;
+        color: $pulse-dark;
+        font-weight: bold;
+      }
+    }
+
+    .titleEdit--container {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      box-sizing: border-box;
+      padding-right: 0.5rem;
+      justify-content: space-around;
+      width: 100%;
+      text-overflow: clip;
+
+      .titleEdit--input {
+        flex-grow: 1;
+        padding: 0.5rem;
+        border: 1px solid $sakura-active-border-color;
+        border-radius: 0.5rem;
+        font-size: 0.8rem;
+        color: $pulse-dark;
+        background-color: lighten($sakura-active-border-color, 30%);
+        transition: border 0.2s ease-in-out;
+        max-width: 70%;
+
+        &:focus {
+          outline: none;
+          border-color: $pastel-coral;
+          box-shadow: $box-shadow-cyan;
+        }
+      }
+
+      .titleEdit--btn {
+        padding: 0.3rem 0.6rem;
+        background-color: $pastel-light-blue;
+        color: $text-muted;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+          background-color: darken($pastel-light-blue, 5%);
+        }
+      }
+    }
+
+    .thread--actions-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      gap: 0.3rem;
+
+      button {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 0.25rem;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          scale: 1.5;
+        }
+      }
+
+      .edit-btn::before {
+        content: "\270E";
+      }
+
+      .delete-btn::before {
+        content: "\1F5D1";
+      }
+    }
+
+    &:hover, &.active {
+      transform: translateY(-0.3rem);
+      background-color: lighten($sakura-active-border-color, 10%);
+    }
+  }
+}
+
+@media (max-width: 1080px) {
+  .threadsList--container {
+    .thread {
+      .titleEdit--container {
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .titleEdit--input {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}
