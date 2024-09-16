@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Thread.scss";
-import axios from "axios";
 import { IThread, IThreadMessage } from "../../core";
+import axios from "axios";
 
 interface ThreadProps {
 	currentThread: IThread | null;
@@ -16,23 +16,30 @@ export const Thread: React.FC<ThreadProps> = ({
 }) => {
 	const [inputValue, setInputValue] = useState("");
 	const lastMessageRef = useRef<HTMLDivElement>(null);
+	const [displayedMessage, setDisplayedMessage] = useState<string>("");
 
 	const handleSendMessage = async () => {
 		if (currentThread) {
+			const tempId = "tempId-" + Date.now();
+			const newMessages: IThreadMessage[] = [
+				...currentThread.messages,
+				{
+					text: inputValue,
+					_id: tempId,
+					sender: "user",
+					timestamp: new Date(),
+				},
+				{
+					text: "",
+					_id: "temp-assistant",
+					sender: "assistant",
+					timestamp: new Date(),
+				},
+			];
+			setCurrentThread({ ...currentThread, messages: newMessages });
 			setInputValue("");
-			setCurrentThread({
-				...currentThread,
-				messages: [
-					...currentThread.messages,
-					{
-						text: inputValue,
-						_id: "messageId",
-						sender: "user",
-						timestamp: new Date(),
-						isNew: false,
-					},
-				],
-			});
+			setDisplayedMessage("");
+
 			try {
 				const response = await axios.post(
 					`http://localhost:4000/api/assistant/${currentThread._id}/new`,
@@ -46,9 +53,32 @@ export const Thread: React.FC<ThreadProps> = ({
 				);
 				if (response?.data?.value) {
 					const updatedThread = response.data.value as IThread;
-					setCurrentThread(updatedThread);
+					if (updatedThread) {
+						const lastMessage =
+							updatedThread.messages[updatedThread.messages.length - 1];
+
+						if (lastMessage?.sender === "assistant") {
+							let messageText = lastMessage.text;
+							let index = -1;
+
+							const typingInterval = setInterval(() => {
+								setDisplayedMessage(
+									(prev: string) => prev + messageText[index],
+								);
+								index++;
+								if (index === messageText.length - 1) {
+									clearInterval(typingInterval);
+									setCurrentThread(updatedThread);
+								}
+							}, 50);
+						} else {
+							setCurrentThread(updatedThread);
+						}
+					} else {
+						console.error("Failed to update thread.");
+					}
 				} else {
-					console.error("Failed to send message.");
+					console.error("Failed to fetch thread.");
 				}
 			} catch (error) {
 				console.error("Error sending message:", error);
@@ -67,14 +97,28 @@ export const Thread: React.FC<ThreadProps> = ({
 			{currentThread ? (
 				<>
 					<div className="messages-container">
-						{currentThread.messages.map((message: IThreadMessage) => (
-							<div key={message._id} className={`message ${message.sender}`}>
-								{message.text}
+						{currentThread.messages
+							.slice(0, -1)
+							.map((message: IThreadMessage) => (
+								<div key={message._id} className={`message ${message.sender}`}>
+									{message.text}
+								</div>
+							))}
+
+						{currentThread.messages.length > 0 && (
+							<div
+								key={
+									currentThread.messages[currentThread.messages.length - 1]._id
+								}
+								className={`message assistant`}>
+								{displayedMessage ||
+									currentThread.messages[currentThread.messages.length - 1]
+										.text}
 							</div>
-						))}
+						)}
+
 						<div ref={lastMessageRef} />
 					</div>
-
 					<div className="input-container">
 						<input
 							type="text"
