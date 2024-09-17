@@ -3,5 +3,4 @@ export interface IThreadMessage {
 	text: string;
 	sender: "user" | "assistant";
 	timestamp: Date;
-	isNew: boolean;
 }
