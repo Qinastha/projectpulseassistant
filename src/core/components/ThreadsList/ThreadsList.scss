@@ -15,7 +15,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem;
-    border-radius: 0.5rem;
     border-bottom: 1px solid $sakura-active-border-color;
     width: 100%;
     box-sizing: border-box;
@@ -39,16 +38,15 @@
 
       h6 {
         margin: 0;
-        font-size: 0.8rem;
-        color: $pulse-dark;
-        font-weight: bold;
+        font-size: 1rem;
+        color: $pastel-light-blue;
+        font-weight: normal;
       }
     }
 
     .titleEdit--container {
       display: flex;
       flex-direction: row;
-      gap: 1rem;
       box-sizing: border-box;
       padding-right: 0.5rem;
       justify-content: space-around;
@@ -101,6 +99,7 @@
         border: none;
         font-size: 1rem;
         cursor: pointer;
+        color: $pastel-light-blue;
         padding: 0.25rem;
         transition: all 0.3s ease-in-out;
 
@@ -120,7 +119,7 @@
 
     &:hover, &.active {
       transform: translateY(-0.3rem);
-      background-color: lighten($sakura-active-border-color, 10%);
+      border-bottom: 1.3px solid $pastel-light-blue;
     }
   }
 }

@@ -94,14 +94,16 @@ export const Navbar: React.FC<NavbarProps> = ({
 	return (
 		<div className="navbar--container">
 			<div className="navbar--container_header">
-				<div className="navbar--container-title glassmorphism">
-					<h3>Threads list:</h3>
+				<div className="navbar--container-title ">
+					<h3>PulseX</h3>
 				</div>
-				<div className="navbar--container-button glassmorphism">
-					<button onClick={handleNewThreadClick}>&#43;</button>
+				<div className="navbar--container-button">
+					<button onClick={handleNewThreadClick}>
+						<span className="navbar--container-button-icon">&#43;</span>
+					</button>
 				</div>
 			</div>
-			<div className="navbar--container-threads glassmorphism">
+			<div className="navbar--container-threads ">
 				<ThreadsList
 					threads={threads}
 					currentThread={currentThread}

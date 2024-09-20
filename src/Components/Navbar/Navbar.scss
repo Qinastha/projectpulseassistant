@@ -18,8 +18,9 @@
     justify-content: space-between;
     gap: 0.3rem;
     border-radius: 0.5rem;
-    padding: 0.7rem 0;
+    padding: 0.7rem 0.3rem;
     box-sizing: border-box;
+
 
     .navbar--container-title {
       flex-grow: 1;
@@ -28,29 +29,35 @@
       box-sizing: border-box;
 
       h3 {
-        text-align: center;
         border-radius: 0.5rem;
         @include gradientText();
+        margin: 0;
+        font-size: 2rem;
+        text-align: start;
+
       }
     }
 
     .navbar--container-button {
-      padding: 0.5rem;
       box-sizing: border-box;
       height: 100%;
       align-content: center;
 
       button {
-        padding: 0.8rem 1rem;
-        border: none;
-        border-radius: 0.5rem;
-        background-color: $pastel-light-blue;
-        color: $text-muted;
+        @include flex-center;
+        font-size: 3rem;
+        border-radius: 50%;
+        color: $pastel-light-blue;
         cursor: pointer;
+        background: transparent;
+        border: none;
         transition: all 0.3s ease-in-out;
+        width: 45px;
+        height: 45px;
 
         &:hover {
           background-color: darken($pastel-light-blue, 5%);
+          color: #F15F79;
           scale: 1.2;
         }
       }
@@ -63,15 +70,22 @@
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
+    padding: 0.7rem 0.3rem;
     box-sizing: border-box;
   }
 }
 
 @media (max-width: 767px) {
   .navbar--container {
+    .navbar--container_header {
+      flex-direction: column;
     .navbar--container-title {
       h3 {
-        font-size: 0.7rem;
+        font-size: 1.5rem;
+      }
+    }
+      .navbar--container-button {
+        padding: 0.2rem;
       }
     }
   }

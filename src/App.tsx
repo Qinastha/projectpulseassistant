@@ -1,5 +1,4 @@
 import React from "react";
-import "@Qinastha/pulse_library/dist/index.css";
 import { Main } from "./Main";
 import { AuthProvider } from "./core/utilities/AuthContext";
 

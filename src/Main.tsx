@@ -59,7 +59,7 @@ export const Main: React.FC = () => {
 
 				<header>
 					<div
-						className={`header--container ${!isNavbarHidden ? "" : "hidden"} glassmorphism`}>
+						className={`header--container ${!isNavbarHidden ? "" : "hidden"}`}>
 						<Navbar
 							threads={threads}
 							token={token ?? ""}

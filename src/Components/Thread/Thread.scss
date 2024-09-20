@@ -9,10 +9,8 @@
   border-radius: 16px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
   box-sizing: border-box;
   gap: 0.5rem;
-  padding: 0.5rem;
 }
 
 .messages-container {
@@ -21,7 +19,6 @@
   overflow-x: hidden;
   padding: 1rem;
   box-sizing: border-box;
-  margin-right: -1rem;
   display: flex;
   flex-direction: column;
 
@@ -48,7 +45,7 @@
 
 .message.assistant {
   align-self: flex-start;
-  background-color: rgba($pastel-coral, 0.6);
+  background-color: rgba($pastel-coral, 0.9);
 }
 
 .input-container {

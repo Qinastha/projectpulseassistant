@@ -1,7 +1,7 @@
 import React from "react";
 import { IThread } from "../../interfaces";
 import "./ThreadsList.scss";
-import { useViewport } from "@Qinastha/pulse_library";
+import {trimText, useViewport} from "@Qinastha/pulse_library";
 
 interface ThreadsListProps {
 	threads: IThread[];
@@ -33,11 +33,7 @@ export const ThreadsList: React.FC<ThreadsListProps> = ({
 	setTitleValue,
 }) => {
 	const { viewportWidth } = useViewport();
-	const getTrimmedTitle = (title: string) => {
-		const charWidthVW = 10.2;
-		const maxChars = Math.floor((viewportWidth * 0.18) / charWidthVW);
-		return title.length > maxChars ? title.slice(0, maxChars) + "..." : title;
-	};
+
 	return (
 		<div className="threadsList--container">
 			{threads.length > 0 ? (
@@ -54,7 +50,13 @@ export const ThreadsList: React.FC<ThreadsListProps> = ({
 								<div
 									className="title--container"
 									onClick={() => handleSelectThread(thread._id)}>
-									<h6>{getTrimmedTitle(thread.title)}</h6>
+									<h6>
+										{trimText({
+										title: thread.title,
+										viewportWidth,
+										charWidthVW: viewportWidth > 1080 ? 12 : 20,
+										})}
+									</h6>
 								</div>
 							) : (
 								<div className="titleEdit--container">
