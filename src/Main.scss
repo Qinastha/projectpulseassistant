@@ -2,74 +2,74 @@
 @import "~@Qinastha/pulse_library/src/styles/mixins";
 
 .core--container {
-  display: grid;
-  grid-template-columns: minmax(20vw, auto) 1fr;
-  height: 100vh;
-  font-family: $font-family;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  transition: opacity 0.5s ease-in-out;
-  color: $text-muted;
-  background: linear-gradient(135deg, #F15F79, $pastel-powder-blue);
-  padding: 15px;
-  box-sizing: border-box;
+	display: grid;
+	grid-template-columns: minmax(20vw, auto) 1fr;
+	height: 100vh;
+	font-family: $font-family;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	transition: opacity 0.5s ease-in-out;
+	color: $text-muted;
+	background: linear-gradient(135deg, #f15f79, $pastel-powder-blue);
+	padding: 15px;
+	box-sizing: border-box;
 
-  &.hidden {
-    grid-template-columns: 0 1fr;
-    transition: all 0.2s ease-in-out;
-  }
+	&.hidden {
+		grid-template-columns: 0 1fr;
+		transition: all 0.2s ease-in-out;
+	}
 }
 
 .fullscreen-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: $overlay-color;
-  z-index: 999;
-  transition: opacity 0.5s ease-in-out;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $overlay-color;
+	z-index: 999;
+	transition: opacity 0.5s ease-in-out;
 
-  .header--container,
-  .main--container {
-    pointer-events: none;
-    opacity: 0.6;
-  }
+	.header--container,
+	.main--container {
+		pointer-events: none;
+		opacity: 0.6;
+	}
 }
 
 .glassmorphism {
-  background: rgba(255, 255, 255, 0.35);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba($primary-color, 0.37);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+	background: rgba(255, 255, 255, 0.35);
+	border-radius: 16px;
+	box-shadow: 0 8px 32px 0 rgba($primary-color, 0.37);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .popup--container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 8px;
-  z-index: 1000;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 8px;
+	z-index: 1000;
 }
 
 .header--container {
-  height: 100%;
-  overflow: hidden;
-  max-width: 30vw;
-  padding: 0 0.8rem 0 0;
-  box-sizing: border-box;
+	height: 100%;
+	overflow: hidden;
+	max-width: 30vw;
+	padding: 0 0.8rem 0 0;
+	box-sizing: border-box;
 
-  &.hidden {
-    transform: translateX(-100%);
-    transition: transform 0.2s ease-in-out;
-  }
+	&.hidden {
+		transform: translateX(-100%);
+		transition: transform 0.2s ease-in-out;
+	}
 }
 
 .main--container {
-  overflow: hidden;
-  height: calc(100vh - 30px);
-  box-sizing: border-box;
-  padding: 0.5rem;
+	overflow: hidden;
+	height: calc(100vh - 30px);
+	box-sizing: border-box;
+	padding: 0.5rem;
 }

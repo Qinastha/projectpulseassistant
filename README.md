@@ -105,19 +105,16 @@ npm test
 
   [GitHub Repository](https://github.com/Qinastha/ProjectPulse.git)
 
-
 - **ProjectPulse Chat**: The chat application to interact with other members of the project
 
   [GitHub Repository](https://github.com/Qinastha/projectpulsechat.git)
-
 
 - **Pulse Library**: Custom library with elements, variables, mixins, and hooks used in this project.
 
   [GitHub Repository](https://github.com/Qinastha/pulse_library.git)
 
- 
- Install via npm:
+Install via npm:
 
-  ```bash
-  npm install @Qinastha/pulse_library@0.8.2
-  ```
+```bash
+npm install @Qinastha/pulse_library@0.8.2
+```

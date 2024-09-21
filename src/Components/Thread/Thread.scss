@@ -2,92 +2,92 @@
 @import "~@Qinastha/pulse_library/src/styles/mixins";
 
 .chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  max-height: 100vh;
-  border-radius: 16px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-sizing: border-box;
-  gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	max-height: 100vh;
+	border-radius: 16px;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	box-sizing: border-box;
+	gap: 0.5rem;
 }
 
 .messages-container {
-  flex-grow: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 1rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+	flex-grow: 1;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 1rem;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
 
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
 }
 
 .message {
-  margin: 0.5rem 0;
-  padding: 0.75rem;
-  border-radius: 12px;
-  width: fit-content;
-  max-width: 90%;
-  align-self: center;
-  word-wrap: break-word;
-  background-color: rgba(255, 255, 255, 0.2);
+	margin: 0.5rem 0;
+	padding: 0.75rem;
+	border-radius: 12px;
+	width: fit-content;
+	max-width: 90%;
+	align-self: center;
+	word-wrap: break-word;
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
 .message.user {
-  align-self: flex-end;
-  background-color: rgba($pastel-light-blue, 0.9);
+	align-self: flex-end;
+	background-color: rgba($pastel-light-blue, 0.9);
 }
 
 .message.assistant {
-  align-self: flex-start;
-  background-color: rgba($pastel-coral, 0.9);
+	align-self: flex-start;
+	background-color: rgba($pastel-coral, 0.9);
 }
 
 .input-container {
-  display: flex;
-  gap: 0.5rem;
-  padding-bottom: 0.2rem;
-  box-sizing: border-box;
+	display: flex;
+	gap: 0.5rem;
+	padding-bottom: 0.2rem;
+	box-sizing: border-box;
 
-  input[type="text"] {
-    flex-grow: 1;
-    padding: 0.75rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.4);
-    box-shadow: $box-shadow-cyan;
-    transition: all 0.3s ease-in-out;
+	input[type="text"] {
+		flex-grow: 1;
+		padding: 0.75rem;
+		border-radius: 8px;
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		background-color: rgba(255, 255, 255, 0.4);
+		box-shadow: $box-shadow-cyan;
+		transition: all 0.3s ease-in-out;
 
-    &:focus {
-      outline: none;
-      border-color: $sakura-border-color;
-      box-shadow: $box-shadow-cyan;
-    }
-  }
+		&:focus {
+			outline: none;
+			border-color: $sakura-border-color;
+			box-shadow: $box-shadow-cyan;
+		}
+	}
 
-  button {
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    border: none;
-    background-color: $pastel-light-blue;
-    color: $text-muted;
-    box-shadow: $box-shadow-cyan;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+	button {
+		padding: 0.75rem 1rem;
+		border-radius: 8px;
+		border: none;
+		background-color: $pastel-light-blue;
+		color: $text-muted;
+		box-shadow: $box-shadow-cyan;
+		cursor: pointer;
+		transition: background-color 0.2s ease-in-out;
 
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.7;
-      color: $text-muted;
-    }
+		&:disabled {
+			cursor: not-allowed;
+			opacity: 0.7;
+			color: $text-muted;
+		}
 
-    &:hover {
-      background-color: $pastel-powder-blue;
-    }
-  }
+		&:hover {
+			background-color: $pastel-powder-blue;
+		}
+	}
 }

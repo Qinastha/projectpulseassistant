@@ -1,7 +1,7 @@
 import React from "react";
 import { IThread } from "../../interfaces";
 import "./ThreadsList.scss";
-import {trimText, useViewport} from "@Qinastha/pulse_library";
+import { trimText, useViewport } from "@Qinastha/pulse_library";
 
 interface ThreadsListProps {
 	threads: IThread[];
@@ -52,9 +52,9 @@ export const ThreadsList: React.FC<ThreadsListProps> = ({
 									onClick={() => handleSelectThread(thread._id)}>
 									<h6>
 										{trimText({
-										title: thread.title,
-										viewportWidth,
-										charWidthVW: viewportWidth > 1080 ? 12 : 20,
+											title: thread.title,
+											viewportWidth,
+											charWidthVW: viewportWidth > 1080 ? 12 : 20,
 										})}
 									</h6>
 								</div>

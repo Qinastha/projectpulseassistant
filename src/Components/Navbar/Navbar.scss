@@ -2,91 +2,89 @@
 @import "~@Qinastha/pulse_library/src/styles/mixins";
 
 .navbar--container {
-  height: 100%;
-  max-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  box-sizing: border-box;
+	height: 100%;
+	max-height: 100vh;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	box-sizing: border-box;
 
-  .navbar--container_header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.3rem;
-    border-radius: 0.5rem;
-    padding: 0.7rem 0.3rem;
-    box-sizing: border-box;
+	.navbar--container_header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.3rem;
+		border-radius: 0.5rem;
+		padding: 0.7rem 0.3rem;
+		box-sizing: border-box;
 
+		.navbar--container-title {
+			flex-grow: 1;
+			height: 100%;
+			padding: 0.5rem;
+			box-sizing: border-box;
 
-    .navbar--container-title {
-      flex-grow: 1;
-      height: 100%;
-      padding: 0.5rem;
-      box-sizing: border-box;
+			h3 {
+				border-radius: 0.5rem;
+				@include gradientText();
+				margin: 0;
+				font-size: 2rem;
+				text-align: start;
+			}
+		}
 
-      h3 {
-        border-radius: 0.5rem;
-        @include gradientText();
-        margin: 0;
-        font-size: 2rem;
-        text-align: start;
+		.navbar--container-button {
+			box-sizing: border-box;
+			height: 100%;
+			align-content: center;
 
-      }
-    }
+			button {
+				@include flex-center;
+				font-size: 3rem;
+				border-radius: 50%;
+				color: $pastel-light-blue;
+				cursor: pointer;
+				background: transparent;
+				border: none;
+				transition: all 0.3s ease-in-out;
+				width: 45px;
+				height: 45px;
 
-    .navbar--container-button {
-      box-sizing: border-box;
-      height: 100%;
-      align-content: center;
+				&:hover {
+					background-color: darken($pastel-light-blue, 5%);
+					color: #f15f79;
+					scale: 1.2;
+				}
+			}
+		}
+	}
 
-      button {
-        @include flex-center;
-        font-size: 3rem;
-        border-radius: 50%;
-        color: $pastel-light-blue;
-        cursor: pointer;
-        background: transparent;
-        border: none;
-        transition: all 0.3s ease-in-out;
-        width: 45px;
-        height: 45px;
-
-        &:hover {
-          background-color: darken($pastel-light-blue, 5%);
-          color: #F15F79;
-          scale: 1.2;
-        }
-      }
-    }
-  }
-
-  .navbar--container-threads {
-    border-radius: 0.5rem;
-    flex-grow: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 100%;
-    padding: 0.7rem 0.3rem;
-    box-sizing: border-box;
-  }
+	.navbar--container-threads {
+		border-radius: 0.5rem;
+		flex-grow: 1;
+		overflow-y: auto;
+		overflow-x: hidden;
+		width: 100%;
+		padding: 0.7rem 0.3rem;
+		box-sizing: border-box;
+	}
 }
 
 @media (max-width: 767px) {
-  .navbar--container {
-    .navbar--container_header {
-      flex-direction: column;
-    .navbar--container-title {
-      h3 {
-        font-size: 1.5rem;
-      }
-    }
-      .navbar--container-button {
-        padding: 0.2rem;
-      }
-    }
-  }
+	.navbar--container {
+		.navbar--container_header {
+			flex-direction: column;
+			.navbar--container-title {
+				h3 {
+					font-size: 1.5rem;
+				}
+			}
+			.navbar--container-button {
+				padding: 0.2rem;
+			}
+		}
+	}
 }

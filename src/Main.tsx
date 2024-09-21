@@ -12,11 +12,13 @@ export const Main: React.FC = () => {
 	const token = localStorage.getItem("token");
 	const [isNavbarHidden, setIsNavbarHidden] = useState<boolean>(false);
 
+	// Handle touch events for hiding the navbar
 	const { handleTouchStart, handleTouchEnd, handleTouchMove } = useHideNav({
 		onHide: () => setIsNavbarHidden(true),
 		onShow: () => setIsNavbarHidden(false),
 	});
 
+	// Fetch threads on component mount or token change
 	useEffect(() => {
 		const fetchThreads = async () => {
 			try {
