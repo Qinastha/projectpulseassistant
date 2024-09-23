@@ -4,6 +4,7 @@ import "./Main.scss";
 import { IThread, useAuth } from "./core";
 import axios from "axios";
 import { useHideNav } from "@Qinastha/pulse_library";
+import "./i18n";
 
 export const Main: React.FC = () => {
 	const { isAuthenticated } = useAuth();

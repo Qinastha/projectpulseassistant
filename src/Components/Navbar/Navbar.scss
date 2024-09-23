@@ -8,7 +8,6 @@
 	overflow-y: hidden;
 	display: flex;
 	flex-direction: column;
-	gap: 0.3rem;
 	box-sizing: border-box;
 
 	.navbar--container_header {
@@ -16,7 +15,6 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
-		gap: 0.3rem;
 		border-radius: 0.5rem;
 		padding: 0.7rem 0.3rem;
 		box-sizing: border-box;
@@ -70,6 +68,17 @@
 		width: 100%;
 		padding: 0.7rem 0.3rem;
 		box-sizing: border-box;
+	}
+}
+
+.language-switcher {
+	width: 80%;
+	padding: 0.5rem;
+	box-sizing: border-box;
+	align-self: center;
+
+	.switcher-toggle {
+		width: 100%;
 	}
 }
 

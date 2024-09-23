@@ -2,6 +2,7 @@ import React from "react";
 import { IThread } from "../../interfaces";
 import "./ThreadsList.scss";
 import { trimText, useViewport } from "@Qinastha/pulse_library";
+import { useTranslation } from "react-i18next";
 
 interface ThreadsListProps {
 	threads: IThread[];
@@ -32,6 +33,7 @@ export const ThreadsList: React.FC<ThreadsListProps> = ({
 	handleDeleteThreadClick,
 	setTitleValue,
 }) => {
+	const { t } = useTranslation();
 	const { viewportWidth } = useViewport();
 
 	return (
@@ -90,7 +92,7 @@ export const ThreadsList: React.FC<ThreadsListProps> = ({
 				</>
 			) : (
 				<div className="no-threads-container">
-					<p>No threads found.</p>
+					<p>{t("threadsList.noThreads")}</p>
 				</div>
 			)}
 		</div>

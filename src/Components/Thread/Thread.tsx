@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Thread.scss";
 import { IThread, IThreadMessage } from "../../core";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 interface ThreadProps {
 	currentThread: IThread | null;
@@ -14,6 +15,7 @@ export const Thread: React.FC<ThreadProps> = ({
 	token,
 	setCurrentThread,
 }) => {
+	const { t } = useTranslation();
 	const [inputValue, setInputValue] = useState("");
 	const lastMessageRef = useRef<HTMLDivElement>(null);
 	const [displayedMessage, setDisplayedMessage] = useState<string>("");
@@ -97,47 +99,53 @@ export const Thread: React.FC<ThreadProps> = ({
 			{currentThread ? (
 				<>
 					<div className="messages-container">
-						{currentThread.messages
-							.slice(0, -1)
-							.map((message: IThreadMessage) => (
-								<div key={message._id} className={`message ${message.sender}`}>
-									{message.text}
-								</div>
-							))}
+						{currentThread.messages.length > 0 ? (
+							<>
+								{currentThread.messages
+									.slice(0, -1)
+									.map((message: IThreadMessage) => (
+										<div
+											key={message._id}
+											className={`message ${message.sender}`}>
+											{message.text}
+										</div>
+									))}
 
-						{currentThread.messages.length > 0 && (
-							<div
-								key={
-									currentThread.messages[currentThread.messages.length - 1]._id
-								}
-								className={`message assistant`}>
-								{displayedMessage ||
-									currentThread.messages[currentThread.messages.length - 1]
-										.text}
-							</div>
+								{currentThread.messages.length > 0 && (
+									<div
+										key={
+											currentThread.messages[currentThread.messages.length - 1]
+												._id
+										}
+										className={`message assistant`}>
+										{displayedMessage ||
+											currentThread.messages[currentThread.messages.length - 1]
+												.text}
+									</div>
+								)}
+
+								<div ref={lastMessageRef} />
+							</>
+						) : (
+							<div className="no-messages">{t("thread.noMessages")}</div>
 						)}
-
-						<div ref={lastMessageRef} />
 					</div>
 					<div className="input-container">
 						<input
 							type="text"
 							value={inputValue}
 							onChange={e => setInputValue(e.target.value)}
-							placeholder="Type a question..."
+							placeholder={t("thread.inputPlaceholder")}
 						/>
 						<button
 							onClick={() => handleSendMessage()}
 							disabled={inputValue === ""}>
-							Send
+							{t("thread.send")}
 						</button>
 					</div>
 				</>
 			) : (
-				<div className="no-thread-selected">
-					No thread selected. Please select a thread from the list or create a
-					new one with button.
-				</div>
+				<div className="no-thread-selected">{t("thread.noThread")}</div>
 			)}
 		</div>
 	);

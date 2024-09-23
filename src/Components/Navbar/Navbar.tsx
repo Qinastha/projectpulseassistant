@@ -7,6 +7,8 @@ import {
 	IThread,
 	ThreadsList,
 } from "../../core";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@Qinastha/pulse_library";
 
 interface NavbarProps {
 	threads: IThread[];
@@ -23,6 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 	setThreads,
 	setCurrentThread,
 }) => {
+	const { i18n } = useTranslation();
 	const [titleValue, setTitleValue] = useState("");
 	const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -91,6 +94,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 		}
 	};
 
+	const switchLanguage = () => {
+		i18n.changeLanguage(i18n.language === "en" ? "ua" : "en");
+	};
+
 	return (
 		<div className="navbar--container">
 			<div className="navbar--container_header">
@@ -116,6 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 					setTitleValue={setTitleValue}
 				/>
 			</div>
+			<LanguageSwitcher switchLanguage={switchLanguage} />
 		</div>
 	);
 };

@@ -4,9 +4,11 @@ import { LOGIN_REQUIRED_INPUTS } from "../../core";
 import axios from "axios";
 import { PulseForm } from "@Qinastha/pulse_library";
 import { useAuth } from "../../core/utilities/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export const LoginPage: React.FC = () => {
 	const { setAuthenticated } = useAuth();
+	const { t } = useTranslation();
 
 	interface LoginFormData {
 		email: string;
@@ -55,7 +57,7 @@ export const LoginPage: React.FC = () => {
 				onChange={handleInputChange}
 			/>
 			<button type="button" onClick={handleSubmit}>
-				Login
+				{t("login.buttonText")}
 			</button>
 		</div>
 	);
