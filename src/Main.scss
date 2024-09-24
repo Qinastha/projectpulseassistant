@@ -73,3 +73,17 @@
 	box-sizing: border-box;
 	padding: 0.5rem;
 }
+
+@media (max-width: 768px) {
+	.core--container {
+		grid-template-columns: minmax(30vw, auto) 1fr;
+		padding: 0;
+		.header--container {
+			padding: 0;
+		}
+		.main--container {
+            padding: 0;
+			height: 100%;
+        }
+	}
+}
